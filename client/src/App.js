@@ -23,6 +23,26 @@ class App extends Component {
         deployedNetwork && deployedNetwork.address,
       );
 
+      console.log('Subscription to Stored0');
+      instance.events.Stored0().on('data', async (event) => {
+          console.log('Called in Stored0', 'event');
+      });
+
+      console.log('Subscription to Stored1');
+      instance.events.Stored1().on('data', async (event) => {
+          console.log('Called in Stored1', 'event');
+      });
+
+      console.log('Subscription to Stored2');
+      instance.events.Stored2().on('data', async (event) => {
+          console.log('Called in Stored2', 'event');
+      });
+
+      console.log('Subscription to Stored3');
+      instance.events.Stored3().on('data', async (event) => {
+          console.log('Called in Stored3', 'event');
+      });
+
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance }, this.runExample);
@@ -39,7 +59,10 @@ class App extends Component {
     const { accounts, contract } = this.state;
 
     // Stores a given value, 5 by default.
-    await contract.methods.set(5).send({ from: accounts[0] });
+    await contract.methods.set0(5).send({ from: accounts[0] });
+    await contract.methods.set1(10).send({ from: accounts[0] });
+    await contract.methods.set2(15).send({ from: accounts[0] });
+    await contract.methods.set3(15).send({ from: accounts[0] });
 
     // Get the value from the contract to prove it worked.
     const response = await contract.methods.get().call();
